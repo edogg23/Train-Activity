@@ -11,3 +11,21 @@
 
   var database = firebase.database();
   console.log("db Object: ", database);
+
+  $("button").on("click", function() {
+  	event.preventDefault();
+  	trainName = $("#train-name").val().trim();
+  	destination = $("#destination").val().trim();
+  	firstTrain = $("#first-train-time").val().trim();
+  	frequency = $("#frequency").val().trim();
+
+    console.log("train name: ", trainName);
+    console.log("destination: ", destination);
+    console.log("f train time: ", firstTrain);
+    console.log("frequency: ", frequency);
+  })
+  
+
+  // database.ref().push({
+  // 	"dbtrainname": "Ernest"
+  // })
