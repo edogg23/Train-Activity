@@ -23,9 +23,18 @@
     console.log("destination: ", destination);
     console.log("f train time: ", firstTrain);
     console.log("frequency: ", frequency);
+
+     database.ref().push({
+  	"dbtrainname": trainName,
+  	"dbdestination": destination,
+  	"dbfirsttrain": firstTrain,
+  	"dbfrequency": frequency
+ 	 });
+
+     $("tbody").append("<tr><td>" + trainName + "</td>" + "<td>" + destination + "</td>" + "<td>" + firstTrain + "</td>" + "<td>" + frequency + "</td></tr>");
+
+     $("input").val("");
   })
   
 
-  // database.ref().push({
-  // 	"dbtrainname": "Ernest"
-  // })
+ 
