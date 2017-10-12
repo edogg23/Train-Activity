@@ -12,6 +12,17 @@
   var database = firebase.database();
   console.log("db Object: ", database);
 
+  database.ref().on("value", function(snapshot) {
+     	console.log("dbsnapshot: ", snapshot.val());
+     	// $("#click-value").html(snapshot.val().clickCount);
+     	// $("tbody").append("<tr><td>" + trainName + "</td>" + "<td>" + destination + "</td>" + "<td>" + firstTrain + "</td>" + "<td>" + frequency + "</td></tr>");
+     	// $("tbody").html(snapshot.val().dbdestination);
+     	var displayDestination = snapshot.val().dbdestination;
+     	console.log("dbdestination: " + displayDestination);
+     }, function(errorObject) {
+     	console.log("The read failed: " + errorObject.code);
+     });
+
   $("button").on("click", function() {
   	event.preventDefault();
   	trainName = $("#train-name").val().trim();
@@ -34,6 +45,8 @@
      $("tbody").append("<tr><td>" + trainName + "</td>" + "<td>" + destination + "</td>" + "<td>" + firstTrain + "</td>" + "<td>" + frequency + "</td></tr>");
 
      $("input").val("");
+
+
   })
   
 
