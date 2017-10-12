@@ -13,15 +13,28 @@
   console.log("db Object: ", database);
 
   database.ref().on("value", function(snapshot) {
+  	snapshot.forEach(function(childsnapshot){
+
+	// use web API instead of rest API
+  		console.log("childsnapshot: " + childsnapshot.val()["dbdestination"]);
+  		var sTrainName = childsnapshot.val()["dbtrainname"];
+  		var sDestination = childsnapshot.val()["dbdestination"];
+  		var sFrequency = childsnapshot.val()["dbfrequency"];
+  		var nextArrival = 10;
+  		var miutesAway = 10;
+  		console.log("sDestination: " + sDestination);
+  		$("tbody").append("<tr><td>" + sTrainName + "</td>" + "<td>" + sDestination + "</td>" + "<td>" + sFrequency + "</td>" + "<td>" + nextArrival + "</td>" + "<td>" + miutesAway + "</td></tr>");
+
+
+  	})
      	console.log("dbsnapshot: ", snapshot.val());
-     	// $("#click-value").html(snapshot.val().clickCount);
-     	// $("tbody").append("<tr><td>" + trainName + "</td>" + "<td>" + destination + "</td>" + "<td>" + firstTrain + "</td>" + "<td>" + frequency + "</td></tr>");
-     	// $("tbody").html(snapshot.val().dbdestination);
      	var displayDestination = snapshot.val().dbdestination;
-     	console.log("dbdestination: " + displayDestination);
+     	
      }, function(errorObject) {
      	console.log("The read failed: " + errorObject.code);
      });
+
+
 
   $("button").on("click", function() {
   	event.preventDefault();
