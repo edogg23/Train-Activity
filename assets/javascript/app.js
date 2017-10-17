@@ -25,24 +25,28 @@ var nextTrainFormatted = '';
 
     var database = firebase.database();
 
+    // Enter form information into database
     database.ref().on("value", function(snapshot) {
+      
+      // Empty the tbody tag so I can rewrite all the info without duplication
       $("tbody").empty();
+
+      //  Goes through all the database records and gets the values from each one
       snapshot.forEach(function(childsnapshot){
 
-    // use web API instead of rest API
-        // console.log("childsnapshot: " + childsnapshot.val()["dbdestination"]);
+    
         sTrainName = childsnapshot.val()["dbtrainname"];
         sDestination = childsnapshot.val()["dbdestination"].trim();
         sFrequency = childsnapshot.val()["dbfrequency"];
         snextTrain = childsnapshot.val()["dbnextTrainFormatted"];
         sminutesTillTrain = childsnapshot.val()["dbminutesTillTrain"]
-        // console.log("sDestination: " + sDestination);
-
+        
+        // Writes out all the informaton in the database appending each record.
         $("tbody").append("<tr><td>" + sTrainName + "</td>" + "<td>" + sDestination + "</td>" + "<td>" + sFrequency + "</td>" + "<td>" + snextTrain + "</td>" + "<td>" + sminutesTillTrain + "</td></tr>");
-        console.log("write b4 click");
+        
 
       })
-        // console.log("dbsnapshot: ", snapshot.val());
+        
         var displayDestination = snapshot.val().dbdestination;
         
        }, function(errorObject) {
@@ -65,10 +69,7 @@ $(document).ready(function() { // JQyery wrapper
       nextTrain = moment().add(minutesTillTrain, "minutes");
       nextTrainFormatted = moment(nextTrain).format("hh:mm");
 
-      // console.log("train name: ", trainName);
-      // console.log("destination: ", destination);
-      // console.log("f train time: ", firstTrain);
-      // console.log("frequency: ", frequency);
+     
 
        database.ref().push({
       "dbtrainname": trainName,
@@ -79,12 +80,11 @@ $(document).ready(function() { // JQyery wrapper
       "dbminutesTillTrain": minutesTillTrain
      });
 
-       // $("tbody").append("<tr><td>" + sTrainName + "</td>" + "<td>" + sDestination + "</td>" + "<td>" + sFrequency + "</td>" + "<td>" + snextTrain + "</td>" + "<td>" + sminutesTillTrain + "</td></tr>");
-
+      
        $("input").val("");
        console.log("write times afer click");
        return false;
-       // console.log("firstTrain time: " + firstTrain);
+       
 
     }); //Ends my submit button function
 
